@@ -4,11 +4,14 @@ use axum::{
     Json, Router,
 };
 use serde::{Deserialize, Serialize};
+use tower_http::cors::{CorsLayer, Any};
 
 #[tokio::main]
 async fn main() {
     // initialize tracing
     tracing_subscriber::fmt::init();
+
+    let cors = CorsLayer::new().allow_origin(Any); // todo: update with a real list of cors
 
     // build our application with a route
     let app = Router::new()
