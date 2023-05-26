@@ -8,6 +8,9 @@ publish = false
 
 [dependencies]
 shuttle-runtime = "0.17.0"
-axum = "0.6.18"
 shuttle-axum = "0.17.0"
+shuttle-secrets = "0.17"
+axum = "0.6.18"
 tokio = "1.28.1"
+anyhow = "1.0.71"
+serde = "1.0"

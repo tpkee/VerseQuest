@@ -1469,6 +1469,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "shuttle-secrets"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9961c2f4944321574e50486e2f6a0f57cb67a06e41c484270d3fada972361d2b"
+dependencies = [
+ "async-trait",
+ "serde",
+ "shuttle-service",
+]
+
+[[package]]
 name = "shuttle-service"
 version = "0.17.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1992,9 +2003,12 @@ checksum = "830b7e5d4d90034032940e4ace0d9a9a057e7a45cd94e6c007832e39edb82f6d"
 name = "versequest-be"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "axum",
+ "serde",
  "shuttle-axum",
  "shuttle-runtime",
+ "shuttle-secrets",
  "tokio",
 ]
 
