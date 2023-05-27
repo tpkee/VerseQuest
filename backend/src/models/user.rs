@@ -1,6 +1,7 @@
 use diesel::prelude::*;
+use diesel_derive_enum::DbEnum;
 
-#[derive(Debug, PartialEq, Eq, diesel_derive_enum::DbEnum)] // https://github.com/adwhit/diesel-derive-enum
+#[derive(Debug, PartialEq, Eq, DbEnum, serde::Serialize)] // https://github.com/adwhit/diesel-derive-enum
 #[ExistingTypePath = "crate::schema::sql_types::UserRoles"]
 pub enum UserRoles {
     Admin,
@@ -8,9 +9,8 @@ pub enum UserRoles {
     Superadmin,
 }
 
-#[derive(Queryable, Selectable)]
+#[derive(serde::Serialize, Selectable, Queryable)]
 #[diesel(table_name = crate::schema::users)]
-#[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct User {
     id: uuid::Uuid,
     roles: Vec<Option<UserRoles>>,
