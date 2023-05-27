@@ -1,6 +1,6 @@
 use axum::{
     routing::{get},
-    Json, Router,
+    Router
 };
 
 const PORT: u16 = 8080;
