@@ -3,7 +3,7 @@ name: Deploy Backend to Shuttle.rs
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
@@ -23,6 +23,22 @@ jobs:
         env:
           SHUTTLE_SECRET_KEY: ${{ secrets.SHUTTLE_SECRET_KEY }}
         run: cargo shuttle login --api-key $SHUTTLE_SECRET_KEY
+        
+      - name: Create Secrets.toml
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_URL: ${{ secrets.DB_URL }}
+        run: |
+          echo "[secrets]" > Secrets.toml
+          echo "DB_PASSWORD = '${DB_PASSWORD}'" >> Secrets.toml
+          echo "DB_USERNAME = '${DB_USERNAME}'" >> Secrets.toml
+          echo "DB_NAME = '${DB_NAME}'" >> Secrets.toml
+          echo "DB_PORT = '${DB_PORT}'" >> Secrets.toml
+          echo "DB_URL = '${DB_URL}'" >> Secrets.toml
+
 
       - name: Build and Deploy
         run: |
