@@ -1,19 +1,19 @@
 // @generated automatically by Diesel CLI.
 
 pub mod sql_types {
-    #[derive(diesel::query_builder::QueryId, diesel::sql_types::SqlType)]
+    #[derive(diesel::sql_types::SqlType)]
     #[diesel(postgres_type(name = "book_genre"))]
     pub struct BookGenre;
 
-    #[derive(diesel::query_builder::QueryId, diesel::sql_types::SqlType)]
+    #[derive(diesel::sql_types::SqlType)]
     #[diesel(postgres_type(name = "book_language"))]
     pub struct BookLanguage;
 
-    #[derive(diesel::query_builder::QueryId, diesel::sql_types::SqlType)]
+    #[derive(diesel::sql_types::SqlType)]
     #[diesel(postgres_type(name = "book_status"))]
     pub struct BookStatus;
 
-    #[derive(diesel::query_builder::QueryId, diesel::sql_types::SqlType)]
+    #[derive(diesel::sql_types::SqlType)]
     #[diesel(postgres_type(name = "user_roles"))]
     pub struct UserRoles;
 }

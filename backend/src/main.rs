@@ -1,6 +1,3 @@
-mod schema;
-mod models;
-
 use axum::{
     routing::{get},
     Router
