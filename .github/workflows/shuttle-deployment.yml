@@ -13,11 +13,24 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         
-      - name: Install cargo-binstall
-        run: cargo install cargo-binstall --version ^0.22 
+      - name: Cache Cargo dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cargo
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
         
       - name: Install cargo-shuttle
-        run: cargo binstall --no-confirm cargo-shuttle
+        run: cargo install cargo-shuttle --locked
+        
+      - name: Cache cargo-shuttle
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.HOME }}/.cargo/bin/cargo-shuttle
+          key: ${{ runner.os }}-shuttle-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-shuttle-
         
       - name: Log in to Shuttle.rs
         env:
@@ -32,7 +45,7 @@ jobs:
           DB_PORT: ${{ secrets.DB_PORT }}
           DB_URL: ${{ secrets.DB_URL }}
         run: |
-          echo "[secrets]" > Secrets.toml
+          cd backend
           echo "DB_PASSWORD = '${DB_PASSWORD}'" >> Secrets.toml
           echo "DB_USERNAME = '${DB_USERNAME}'" >> Secrets.toml
           echo "DB_NAME = '${DB_NAME}'" >> Secrets.toml
