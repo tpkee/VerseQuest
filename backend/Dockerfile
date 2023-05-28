@@ -14,7 +14,7 @@ RUN cargo install --path .
 FROM debian:bullseye-slim
 
 # Update the package list and install extra runtime dependencies
-RUN apt-get update && apt-get install -y protobuf-compiler && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y protobuf-compiler postgresql postgresql-client && rm -rf /var/lib/apt/lists/*
 
 # Copy the built executable from the previous stage to the final image
 COPY --from=builder /usr/local/cargo/bin/versequest-be /usr/local/bin/versequest-be
