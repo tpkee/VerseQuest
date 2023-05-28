@@ -11,7 +11,7 @@ use diesel_async::{
     pooled_connection::AsyncDieselConnectionManager, AsyncPgConnection, RunQueryDsl,
 };
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
-use versequest_be::{models::user::User, schema};
+use versequest_be::{establish_db_connection, models::user::User, schema};
 
 const PORT: u16 = 8080;
 const ADDR: &str = "0.0.0.0";
@@ -51,13 +51,15 @@ async fn main() {
 
     let db_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
 
-    let config = AsyncDieselConnectionManager::<AsyncPgConnection>::new(db_url);
+    let config = AsyncDieselConnectionManager::<AsyncPgConnection>::new_with_setup(
+        db_url,
+        establish_db_connection
+    );
     let pool = bb8::Pool::builder()
-        .max_size(20)
         .build(config)
         .await
         .unwrap();
-
+    println!("Established!");
     let router = Router::new()
         .route("/User/list", get(get_users))
         .with_state(pool);
