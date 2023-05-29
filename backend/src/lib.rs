@@ -1,3 +1,6 @@
+pub mod models;
+pub mod schema;
+
 use deadpool_diesel::postgres::{Manager, Object};
 use diesel::prelude::*;
 
