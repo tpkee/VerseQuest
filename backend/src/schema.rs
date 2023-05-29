@@ -13,10 +13,9 @@ pub mod sql_types {
     #[diesel(postgres_type(name = "book_status"))]
     pub struct BookStatus;
 
-    // #[derive(diesel::query_builder::QueryId, diesel::sql_types::SqlType)] conflicts with DBEnum
     #[derive(diesel::sql_types::SqlType)]
-    #[diesel(postgres_type(name = "user_roles"))]
-    pub struct UserRoles;
+    #[diesel(postgres_type(name = "user_role"))]
+    pub struct UserRole;
 }
 
 diesel::table! {
@@ -100,17 +99,16 @@ diesel::table! {
 
 diesel::table! {
     use diesel::sql_types::*;
-    use super::sql_types::UserRoles;
+    use super::sql_types::UserRole;
 
     users (id) {
         id -> Uuid,
-        roles -> Array<Nullable<UserRoles>>,
+        role -> UserRole,
         #[max_length = 255]
         username -> Varchar,
         #[max_length = 255]
         email -> Varchar,
-        #[max_length = 255]
-        password -> Varchar,
+        password_hash -> Bytea,
         biography -> Text,
         is_verified -> Bool,
         created_at -> Timestamp,
