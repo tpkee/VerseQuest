@@ -1,0 +1,4 @@
+DROP TABLE IF EXISTS Books;
+DROP TYPE IF EXISTS book_language;
+DROP TYPE IF EXISTS book_status;
+DROP TYPE IF EXISTS book_genre;
