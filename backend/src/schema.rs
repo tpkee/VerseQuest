@@ -13,7 +13,7 @@ pub mod sql_types {
     #[diesel(postgres_type(name = "book_status"))]
     pub struct BookStatus;
 
-    #[derive(diesel::sql_types::SqlType)]
+    #[derive(diesel::query_builder::QueryId, diesel::sql_types::SqlType)]
     #[diesel(postgres_type(name = "user_role"))]
     pub struct UserRole;
 }

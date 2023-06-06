@@ -1,3 +1,5 @@
+pub mod user;
+
 use axum::{async_trait, extract::FromRequest, body::Bytes, http::Request, BoxError};
 use axum::body::HttpBody;
 
